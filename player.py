@@ -16,9 +16,6 @@ class Player(pygame.sprite.Sprite):
         self.animation_speed = 5
 
         self.pos = pygame.math.Vector2(self.rect.topleft)
-
-        # self.add(groups)
-
         print('helo')
 
     def input(self):
@@ -36,8 +33,6 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = 1
         else:
             self.direction.x = 0
-        
-        print(self.direction)
 
     def movement(self,dt, speed):
         self.pos.x += self.direction.x * speed * dt
@@ -46,19 +41,6 @@ class Player(pygame.sprite.Sprite):
         self.pos.y += self.direction.y * speed * dt
         self.rect.y = round(self.pos.y)
 
-    def animate(self, dt):
-        self.frame_index += self.animation_speed * dt
-        if self.frame_index >= len(self.frames):
-            self.frame_index = 0
-        self.image = self.frames[int(self.frame_index)]
-
-    def rotate(self, dt):
-        self.rotation += 50 * dt
-        self.image = pygame.transform.rotozoom(self.image, self.rotation, 1)
-
     def update(self,dt):
-        print('in player update')
         self.input()
-        # self.animate(dt)
         self.movement(dt, self.move_speed)
-        # self.rotate(dt)
