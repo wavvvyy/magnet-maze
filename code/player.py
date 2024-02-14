@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.pos = pygame.math.Vector2(self.hitbox.topleft)
         self.obstacle_sprites = obstacle_sprites
 
-        print(self.rect.size)
+        self.facing_right = True
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -31,8 +31,10 @@ class Player(pygame.sprite.Sprite):
         
         if keys[pygame.K_a]:
             self.direction.x = -1
+            self.facing_right = False
         elif keys[pygame.K_d]:
             self.direction.x = 1
+            self.facing_right = True
         else:
             self.direction.x = 0
 
@@ -73,6 +75,7 @@ class Player(pygame.sprite.Sprite):
         if self.frame_index >= len(self.frames):
             self.frame_index = 0
         self.image = self.frames[int(self.frame_index)]
+        self.image = self.image if self.facing_right else pygame.transform.flip(self.image, True, False)
 
     def update(self,dt):
         self.input()
