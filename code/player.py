@@ -56,18 +56,17 @@ class Player(pygame.sprite.Sprite):
             for sprite in self.obstacle_sprites:
                 if sprite.hitbox.colliderect(self.hitbox):
                     if self.direction.x > 0:
-                        self.pos.x = self.hitbox.x = sprite.hitbox.left - self.hitbox.size[0] 
-                    if self.direction.x < 0:
+                        self.pos.x = self.hitbox.x = sprite.hitbox.left - self.hitbox.size[0]
+                    elif self.direction.x < 0:
                         self.pos.x = self.hitbox.x = sprite.hitbox.right
-            
+
         elif direction == 'vertical':
             for sprite in self.obstacle_sprites:
-                if sprite.rect.colliderect(self.rect):
+                if sprite.hitbox.colliderect(self.hitbox):
                     if self.direction.y > 0:
-                        self.pos.y = self.hitbox.y = sprite.hitbox.top - self.hitbox.size[1] 
-                    if self.direction.y < 0:
-                        self.pos.y = self.hitbox.y = sprite.hitbox.bottom 
-            
+                        self.pos.y = self.hitbox.y = sprite.hitbox.top - self.hitbox.size[1]
+                    elif self.direction.y < 0:
+                        self.pos.y = self.hitbox.y = sprite.hitbox.bottom
 
     def animate(self, dt):
         self.frame_index += self.animation_speed * dt
